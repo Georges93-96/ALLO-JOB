@@ -10,6 +10,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Provider\ProviderDashboardController;
 use App\Http\Controllers\Client\ClientDashboardController;
 
+
 // HOME
 Route::view('/', 'welcome')->name('home');
 
@@ -61,4 +62,10 @@ Route::middleware(['auth'])->group(function () {
 
     // assigner
     Route::post('/missions/{mission}/assign', [MissionController::class, 'assign'])->name('missions.assign');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mon-profil', function () {
+        return view('profile.custom');
+    })->name('profile.custom');
 });

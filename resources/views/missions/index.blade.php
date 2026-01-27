@@ -103,5 +103,6 @@
         @endif
 
     </div>
+    <a href="{{ url()->previous() }}" class="btn-secondary mb-4 inline-flex">⬅ Retour</a>
     </div>
 </x-app-layout>

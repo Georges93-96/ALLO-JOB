@@ -16,7 +16,13 @@ class ProfileController extends Controller
             'metier' => 'required|string|max:150',
             'tarif' => 'nullable|numeric',
             'bio' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
+
+        $photoPath = null;
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('profiles', 'public');
+        }
 
         Profile::updateOrCreate(
             ['user_id' => Auth::id()],
@@ -26,8 +32,10 @@ class ProfileController extends Controller
                 'metier' => $request->metier,
                 'tarif' => $request->tarif,
                 'bio' => $request->bio,
+                'photo' => $photoPath ?? optional(Profile::where('user_id', Auth::id())->first())->photo,
             ]
         );
+
 
         return redirect()->route('dashboard')
             ->with('success', 'Profil enregistré avec succès');
@@ -73,7 +81,5 @@ class ProfileController extends Controller
     }
 
     // si tu utilises Route::post('/profile/store', ...) garde ceci
-    
+
 }
-
-

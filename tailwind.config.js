@@ -1,17 +1,29 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
+
 export default {
   content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.js",
-    "./resources/**/*.vue",
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.js',
   ],
+
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+      },
       colors: {
-        "brand-green": "#2FA84F",
-        "brand-orange": "#F59E0B",
-        "brand-dark": "#0F172A",
+        brand: {
+          green: '#0F6B4A',
+          yellow: '#FFC24A',
+          color: "#1f2937" ,
+          green: '#10B981', // Exemple : vert émeraude yellow: '#FACC15',
+        },
       },
     },
   },
-  plugins: [],
+
+  plugins: [forms],
 };

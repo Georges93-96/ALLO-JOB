@@ -3,3 +3,21 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold text-white transition;
+    background: theme('colors.brand.green');
+  }
+  .btn-primary:hover { filter: brightness(0.95); }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold border bg-white transition;
+  }
+
+  .badge-yellow {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-sm font-medium;
+    background: theme('colors.brand.yellow');
+    color: #1f2937;
+  }
+}

@@ -4,17 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ALLO JOB</title>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gray-50 text-gray-900 font-sans">
 
-<!-- NAVBAR -->
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 
-        <!-- Logo -->
         <a href="{{ route('home') }}" class="flex items-center gap-3">
             <img src="{{ asset('images/Allojob.png') }}" alt="ALLO JOB" class="h-10 w-auto">
             <div class="leading-tight hidden sm:block">
@@ -22,64 +19,33 @@
             </div>
         </a>
 
-        <!-- Desktop menu -->
         <nav class="hidden md:flex items-center gap-6 text-sm">
             <a href="#how" class="text-gray-600 hover:text-gray-900">Comment ça marche</a>
             <a href="#jobs" class="text-gray-600 hover:text-gray-900">Missions</a>
-            <a href="#ai" class="text-gray-600 hover:text-gray-900">AI</a>
+            <a href="#ai" class="text-gray-600 hover:text-gray-900">IA</a>
 
             @auth
-                <a href="{{ route('dashboard') }}"
-                   class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-                    Dashboard
-                </a>
-
-                <form method="POST" action="{{ route('logout') }}" class="inline">
-                    @csrf
-                    <button type="submit"
-                            class="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition">
-                        Déconnexion
-                    </button>
-                </form>
-            @else
-                <a href="{{ route('login') }}"
-                   class="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition">
-                    Connexion
-                </a>
-
-                <a href="{{ route('register') }}"
-                   class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-                    Inscription
-                </a>
-            @endauth
-        </nav>
-
-        <!-- Mobile menu -->
-        <div class="md:hidden flex items-center gap-2">
-            @auth
-                <a href="{{ route('dashboard') }}"
-                   class="px-3 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold">
-                    Dashboard
-                </a>
-
+                <a href="{{ route('dashboard') }}" class="btn-primary">Dashboard</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit"
-                            class="px-3 py-2 rounded-xl border border-gray-300 text-sm">
-                        Déconnexion
-                    </button>
+                    <button type="submit" class="btn-secondary">Déconnexion</button>
                 </form>
-            @else
-                <a href="{{ route('login') }}"
-                   class="px-3 py-2 rounded-xl border border-gray-300 text-sm">
-                    Connexion
-                </a>
-
-                <a href="{{ route('register') }}"
-                   class="px-3 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold">
-                    Inscription
-                </a>
             @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900">Connexion</a>
+                <a href="{{ route('register') }}" class="btn-primary">Inscription</a>
+            @endguest
+        </nav>
+
+        <div class="md:hidden flex items-center gap-2">
+            @auth
+                <a href="{{ route('dashboard') }}" class="btn-primary px-4 py-2">Dashboard</a>
+            @endauth
+            @guest
+                <a href="{{ route('login') }}" class="btn-secondary px-4 py-2">Connexion</a>
+                <a href="{{ route('register') }}" class="btn-primary px-4 py-2">Inscription</a>
+            @endguest
         </div>
 
     </div>
@@ -87,48 +53,36 @@
 
 <main>
 
-    <!-- HERO -->
+    <!-- HERO + SLIDER -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         <div class="grid lg:grid-cols-2 gap-10 items-center">
 
             <div>
-                <div class="inline-flex items-center gap-2 text-sm font-medium bg-white border rounded-full px-3 py-1">
-                    <span class="h-2 w-2 rounded-full bg-orange-500"></span>
+                <div class="badge-yellow">
                     Plateforme d’accès au travail — pour tous
                 </div>
 
-                <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-gray-900">
+                <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
                     Trouver un job à faire aujourd’hui, <br class="hidden sm:block">
                     physique ou virtuel.
                 </h1>
 
                 <p class="mt-4 text-gray-600 text-base sm:text-lg">
-                    ALLO JOB connecte clients et prestataires (y compris personnes vulnérables) à des missions locales
-                    et des services en ligne : réparation, ménage, livraison, graphisme, développement, rédaction…
+                    ALLO JOB connecte clients et prestataires à des missions locales et des services en ligne :
+                    réparation, ménage, livraison, graphisme, développement, rédaction…
                 </p>
 
                 <div class="mt-6 flex flex-col sm:flex-row gap-3">
                     @guest
-                        <a href="{{ route('register') }}"
-                           class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-                            Créer un compte
-                        </a>
-                    @else
-                        <a href="{{ route('dashboard') }}"
-                           class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-                            Aller au dashboard
-                        </a>
+                        <a href="{{ route('register') }}" class="btn-primary">Créer un compte</a>
+                        <a href="{{ route('login') }}" class="btn-secondary">Connexion</a>
                     @endguest
 
-                    <a href="{{ route('missions.index') }}"
-                       class="inline-flex items-center justify-center px-5 py-3 rounded-2xl border border-gray-300 font-semibold hover:bg-gray-50 transition">
-                        Voir les missions
-                    </a>
+                    @auth
+                        <a href="{{ route('dashboard') }}" class="btn-primary">Aller au Dashboard</a>
+                    @endauth
 
-                    <a href="#ai"
-                       class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition">
-                        Bouton AI
-                    </a>
+                    <a href="{{ url('/missions') }}" class="btn-secondary">Voir les missions</a>
                 </div>
 
                 <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
@@ -147,37 +101,69 @@
                 </div>
             </div>
 
-            <!-- Example card -->
-            <div class="bg-white border rounded-2xl shadow-sm p-6">
-                <div class="flex items-start justify-between">
-                    <div>
-                        <div class="text-sm text-gray-500">Portail mission</div>
-                        <div class="text-xl font-bold mt-1">Réparation rapide</div>
+            <!-- SLIDER -->
+            <div
+                x-data="{
+                    i: 0,
+                    imgs: [
+                        '{{ asset('images/hero/01.jpg') }}',
+                        '{{ asset('images/hero/02.jpg') }}',
+                        '{{ asset('images/hero/03.jpg') }}',
+                        '{{ asset('images/hero/04.jpg') }}',
+                        '{{ asset('images/hero/05.jpg') }}'
+                    ],
+                    next(){ this.i = (this.i + 1) % this.imgs.length; },
+                    prev(){ this.i = (this.i - 1 + this.imgs.length) % this.imgs.length; },
+                    start(){ setInterval(() => this.next(), 3500); }
+                }"
+                x-init="start()"
+                class="bg-white border rounded-2xl shadow-sm overflow-hidden"
+            >
+                <div class="relative h-72 sm:h-80 lg:h-[420px]">
+                    <template x-for="(img, idx) in imgs" :key="idx">
+                        <img
+                            :src="img"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                            :class="i === idx ? 'opacity-100' : 'opacity-0'"
+                            alt="ALLO JOB"
+                        >
+                    </template>
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+
+                    <button @click="prev()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 flex items-center justify-center">
+                        ‹
+                    </button>
+                    <button @click="next()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 flex items-center justify-center">
+                        ›
+                    </button>
+
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+                        <template x-for="(img, idx) in imgs" :key="'dot'+idx">
+                            <button @click="i = idx" class="w-2.5 h-2.5 rounded-full"
+                                :style="i===idx ? 'background:#FFC24A' : 'background:rgba(255,255,255,0.7)'">
+                            </button>
+                        </template>
                     </div>
-                    <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800 font-semibold">
-                        OPEN
-                    </span>
                 </div>
 
-                <div class="mt-4 text-sm text-gray-600">
-                    Lomé — Adidogomé <br>
-                    Budget : 3 500 FCFA <br>
-                    Type : Physique
-                </div>
+                <div class="p-5">
+                    <div class="text-sm text-gray-500">Exemple mission</div>
+                    <div class="text-xl font-bold mt-1">Réparation rapide</div>
+                    <div class="mt-3 text-sm text-gray-600">
+                        Lomé — Adidogomé <br>
+                        Budget : 3 500 FCFA <br>
+                        Type : Physique
+                    </div>
 
-                <div class="mt-4 p-4 rounded-xl bg-gray-50 text-gray-700 text-sm">
-                    “Je cherche quelqu’un disponible aujourd’hui pour une réparation.”
-                </div>
+                    <div class="mt-4 p-4 rounded-xl bg-gray-50 text-gray-700 text-sm">
+                        “Je cherche quelqu’un disponible aujourd’hui pour une réparation.”
+                    </div>
 
-                <div class="mt-5 flex gap-2">
-                    <a href="{{ route('missions.index') }}"
-                       class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition flex-1">
-                        Postuler
-                    </a>
-                    <a href="{{ route('missions.index') }}"
-                       class="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-gray-300 font-semibold hover:bg-gray-50 transition">
-                        Détails
-                    </a>
+                    <div class="mt-5 flex gap-2">
+                        <button class="flex-1 btn-primary">Postuler</button>
+                        <button class="btn-secondary">Détails</button>
+                    </div>
                 </div>
             </div>
 
@@ -187,30 +173,30 @@
     <!-- HOW -->
     <section id="how" class="bg-white border-t">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h2 class="text-2xl font-bold text-gray-900">Comment ça marche</h2>
+            <h2 class="text-2xl font-bold" style="color:#0F6B4A;">Comment ça marche</h2>
 
             <div class="mt-6 grid md:grid-cols-3 gap-6">
                 <div class="border rounded-2xl p-6 bg-white">
-                    <div class="text-sm font-semibold text-orange-500">1</div>
+                    <div class="text-sm font-semibold" style="color:#FFC24A;">1</div>
                     <div class="mt-2 font-semibold">Publier / choisir</div>
                     <p class="mt-2 text-gray-600 text-sm">
-                        Le client décrit le besoin : service, type (physique/virtuel), budget, ville/quartier.
+                        Le client décrit le besoin : type (physique/virtuel), budget, ville/quartier.
                     </p>
                 </div>
 
                 <div class="border rounded-2xl p-6 bg-white">
-                    <div class="text-sm font-semibold text-orange-500">2</div>
+                    <div class="text-sm font-semibold" style="color:#FFC24A;">2</div>
                     <div class="mt-2 font-semibold">Postuler</div>
                     <p class="mt-2 text-gray-600 text-sm">
-                        Les prestataires disponibles postulent avec un message et un prix proposé.
+                        Les prestataires postulent avec un message + un prix.
                     </p>
                 </div>
 
                 <div class="border rounded-2xl p-6 bg-white">
-                    <div class="text-sm font-semibold text-orange-500">3</div>
+                    <div class="text-sm font-semibold" style="color:#FFC24A;">3</div>
                     <div class="mt-2 font-semibold">Assigner</div>
                     <p class="mt-2 text-gray-600 text-sm">
-                        Le client choisit un prestataire : la mission devient <b>assigned</b>.
+                        Le client choisit un prestataire : mission assignée.
                     </p>
                 </div>
             </div>
@@ -219,17 +205,18 @@
 
     <!-- AI -->
     <section id="ai" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="rounded-2xl p-8 bg-gray-900 text-white">
+        <div class="rounded-2xl p-8 text-white" style="background:#0F6B4A;">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>
-                    <h2 class="text-2xl font-bold">AI Assistant</h2>
-                    <p class="text-white/80 mt-2">
-                        L’IA aidera à rédiger une mission, recommander des prestataires et orienter vers des jobs accessibles.
+                    <h2 class="text-2xl font-bold">IA Assistant</h2>
+                    <p class="text-white/90 mt-2">
+                        L’IA aide à rédiger une mission, recommander des prestataires et proposer des jobs adaptés.
                     </p>
                 </div>
-                <a href="#ai"
-                   class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition">
-                    Tester l’AI (bêta)
+
+                <a href="#ai" class="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold"
+                   style="background:#FFC24A; color:#1f2937;">
+                    Tester l’IA (bêta)
                 </a>
             </div>
         </div>

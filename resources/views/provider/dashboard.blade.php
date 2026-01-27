@@ -1,5 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
+        <a href="{{ route('profile.custom') }}" class="btn-secondary">Mon profil</a>
+
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard Prestataire
@@ -52,5 +54,7 @@
             </div>
 
         </div>
+        <a href="{{ url()->previous() }}" class="btn-secondary mb-4 inline-flex">⬅ Retour</a>
+
     </div>
 </x-app-layout>
